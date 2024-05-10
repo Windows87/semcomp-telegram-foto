@@ -37,11 +37,20 @@ p {
     text-align: center;
 }
 
-img {
+#original-image-container {
+    width: 90%;
+    max-width: 400px;
+}
+
+#original-image {
+    max-width: 100%;
+}
+
+#color {
     width: 90%;
     max-width: 400px;
     border-radius: 1000px;
-    aspect-ratio: 1;
+    display: none;
 }
 
 button {
@@ -57,6 +66,6 @@ button {
     display: none;
 }
 
-#download-image {
+#download-image, #generate-image {
     display: none;
 }
