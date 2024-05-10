@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <script src="https://www.lactame.com/lib/image-js/0.21.2/image.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, shrink-to-fit=no">
+    <title>Semcomp Beta Avatar Maker</title>
+    <meta name="description" content="Crie sua foto de perfil com nosso filtro charmoso para Telegram :D">
+    <meta property="og:image" content="./bg.png">
+    <meta name="author" content="Yuri Faria">
+    <meta name="keywords" content="Semcomp, Semcomp Beta, Avatar, Telegram, Filtro, Yuri Faria">
+    <meta property="og:title" content="Semcomp Beta Avatar Maker">
+    <meta property="og:description" content="Crie sua foto de perfil com nosso filtro charmoso para Telegram :D">
+    <meta property="og:image" content="./bg.png">
+  </head>
+
+  <body>
+    <div>
+        <h1>Mostre o seu amor pela Semcomp beta!</h1>
+        <p>Crie sua foto de perfil com nosso filtro charmoso para Telegram :D</p>
+    </div>
+    <img
+      id="color"
+      src="https://i.imgur.com/hpvkmgD.png"
+    />
+    <input type="file" id="input-file" accept="image/png, image/gif, image/jpeg" />
+    <button id="load-image">Carregar Imagem</button>
+    <button id="download-image">Baixar Imagem</button>
+    <script>
+      async function process() {
+        let image = await IJS.Image.load(document.getElementById('color').src);
+        let filter = await IJS.Image.load('https://i.imgur.com/ovawy1o.png');
+
+        image = image.resize({ width: 1385, height: 1385  })
+
+        for (let i = 0; i < image.width; i++) {
+          for (let j = 0; j < image.height; j++) {
+            let pixel = image.getPixel(i, j);
+            let filterPixel = filter.getPixelXY(i, j);
+
+            if (!(filterPixel[0] < 110 && filterPixel[1] < 110 && filterPixel[2] > 110)) {
+              image = image.setPixelXY(i, j, filterPixel);
+            }
+          }
+        }
+
+        image = image.resize({ width: 600, height: 600  })
+
+        document.getElementById('color').src = image.toDataURL();
+        document.getElementById('download-image').style.display = 'block';
+        document.getElementById('download-image').addEventListener('click', () => {
+          const a = document.createElement('a');
+          a.href = image.toDataURL();
+          a.download = 'semcomp-beta.png';
+          a.click();
+        })
+      }
+
+      document.querySelector('#load-image').addEventListener('click', () => {
+        document.querySelector('#input-file').click();
+      })
+
+      document.querySelector('#input-file').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          document.querySelector('#color').src = e.target.result;
+          process();
+        }
+
+        reader.readAsDataURL(file);
+      })
+    </script>
+  </body>
+</html>
