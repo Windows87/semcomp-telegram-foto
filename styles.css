@@ -10,6 +10,11 @@ html, body {
     margin: 0;
 }
 
+html {
+    overflow: hidden;
+    max-height: 100%;
+}
+
 body {
     width: calc(100% - 32px);
     height: calc(100% - 32px);
@@ -23,6 +28,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 16px;
+    overflow: auto;
 }
 
 h1 {

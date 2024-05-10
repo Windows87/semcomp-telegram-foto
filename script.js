@@ -26,6 +26,8 @@ async function process() {
   document.querySelector('#load-image').style.display = 'block';
   document.querySelector('#original-image-container').style.display = 'none';
   document.querySelector('#color').style.display = 'block';
+  
+  document.querySelector('#title').style.display = 'block';
 
   document.getElementById('download-image').addEventListener('click', () => {
     const a = document.createElement('a');
@@ -53,6 +55,7 @@ document.querySelector('#input-file').addEventListener('change', (e) => {
       aspectRatio: 1
     })
 
+    document.querySelector('#title').style.display = 'none';
     document.querySelector('#original-image-container').style.display = 'block';
     document.querySelector('#load-image').style.display = 'none';
     document.querySelector('#generate-image').style.display = 'block';
